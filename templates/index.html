@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouTube → MP3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>YouTube → MP3</h1>
+            <p class="subtitle">Download any YT ssong mp3 for completely free.</p>
+        </header>
+
+        {% if not ffmpeg_ok %}
+        <div class="banner warning">
+            <strong>FFmpeg was not found.</strong><br>
+            Please install FFmpeg and make sure it is available in your system PATH.<br>
+            To verify, run <code>ffmpeg -version</code> in a terminal, then restart this app.
+        </div>
+        {% endif %}
+
+        <section class="card">
+            <label for="urlInput" class="label">YouTube video URL</label>
+            <div class="row">
+                <input id="urlInput" type="text" placeholder="https://www.youtube.com/watch?v=..."
+                       autocomplete="off" spellcheck="false">
+                <button id="pasteBtn" class="btn secondary" type="button">Paste</button>
+            </div>
+            <button id="infoBtn" class="btn primary full" type="button">Get Video Info</button>
+            <div id="errorBox" class="banner error hidden" role="alert"></div>
+        </section>
+
+        <section id="videoCard" class="card hidden">
+            <div class="video">
+                <img id="thumb" alt="Video thumbnail">
+                <div class="video-meta">
+                    <h2 id="videoTitle"></h2>
+                    <p id="videoChannel" class="muted"></p>
+                    <p class="muted">Duration: <span id="videoDuration"></span></p>
+                    <p class="muted" id="sizeInfo"></p>
+                </div>
+            </div>
+
+            <label for="quality" class="label">Audio quality</label>
+            <select id="quality">
+                <option value="128">128 kbps</option>
+                <option value="192" selected>192 kbps</option>
+                <option value="256">256 kbps</option>
+                <option value="320">320 kbps</option>
+            </select>
+
+            <button id="convertBtn" class="btn primary full" type="button">Convert to MP3</button>
+
+            <div id="progressSection" class="hidden">
+                <div class="progress-head">
+                    <span id="progressLabel">Fetching video...</span>
+                    <span id="progressPercent"></span>
+                </div>
+                <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+            </div>
+
+            <div id="doneSection" class="done hidden">
+                <p class="done-title">Conversion complete ✓</p>
+                <p id="doneFilename" class="muted"></p>
+                <a id="downloadBtn" class="btn primary full" href="#">Download MP3</a>
+                <p class="muted small">The temporary file is deleted shortly after you download it.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

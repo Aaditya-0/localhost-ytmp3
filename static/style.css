@@ -1,0 +1,121 @@
+:root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --border: #2a2f3a;
+    --text: #e8eaed;
+    --muted: #9aa0ab;
+    --accent: #4f8cff;
+    --accent-hover: #6a9dff;
+    --error-bg: #3a1f24;
+    --error-text: #ff9aa5;
+    --warn-bg: #3a2f17;
+    --warn-text: #ffd479;
+    --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+}
+
+header { text-align: center; margin-bottom: 24px; }
+h1 { margin: 0 0 6px; font-size: 2rem; }
+h2 { margin: 0 0 4px; font-size: 1.1rem; line-height: 1.3; word-break: break-word; }
+.subtitle { margin: 0; color: var(--muted); }
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; }
+.row { display: flex; gap: 8px; margin-bottom: 12px; }
+
+input[type="text"], select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+}
+input[type="text"]:focus, select:focus { border-color: var(--accent); }
+select { margin-bottom: 14px; }
+
+.btn {
+    display: inline-block;
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn.secondary { background: var(--border); color: var(--text); }
+.btn.secondary:hover:not(:disabled) { background: #363c4a; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.full { width: 100%; }
+
+.banner {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+.banner.error { background: var(--error-bg); color: var(--error-text); }
+.banner.warning { background: var(--warn-bg); color: var(--warn-text); margin-bottom: 16px; }
+code { background: rgba(255, 255, 255, 0.1); padding: 1px 6px; border-radius: 5px; }
+
+.video { display: flex; gap: 14px; margin-bottom: 18px; }
+.video img {
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: var(--bg);
+    flex-shrink: 0;
+}
+.video-meta p { margin: 0; font-size: 0.9rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.8rem; margin: 10px 0 0; text-align: center; }
+
+#progressSection { margin-top: 18px; }
+.progress-head { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
+.progress-track { height: 10px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: var(--accent); transition: width 0.3s ease; }
+/* Used when there is no real percentage (e.g. while FFmpeg converts). */
+.progress-fill.indeterminate { width: 35%; animation: slide 1.2s ease-in-out infinite alternate; }
+@keyframes slide { from { margin-left: 0; } to { margin-left: 65%; } }
+
+.done { margin-top: 18px; text-align: center; }
+.done-title { font-size: 1.15rem; font-weight: 600; margin: 0 0 4px; color: #6ee7a0; }
+.done .btn { margin-top: 10px; }
+
+.hidden { display: none !important; }
+
+@media (max-width: 520px) {
+    .video { flex-direction: column; }
+    .video img { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+    .row { flex-direction: column; }
+}
